@@ -1,5 +1,65 @@
-.logo {
+/* *header */
+.font-header {
+    margin-top: 35px;
+}
+
+.font-header h3 {
+    font-weight: 1000;
+    font-size: 35px;
+}
+
+.font-header h5 {
+    margin-top: 15px;
+    font-size: 25px;
+    color: gray;
+}
+
+/* *Content */
+.forgot-pass {
+    text-align: right;
+    margin-top: -30px;
+}
+
+.forgot-pass h5 a {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* *footer */
+.footer {
+    margin: 110px 0 0 110px;
+    font-size: 15px;
+}
+
+/* *right image */
+.img {
     margin-left: 63px;
     height: 667px;
     width: 700px;
+    position: relative;
+    z-index: -1;
+}
+
+.container-banner {
+    background: rgba(75, 146, 219, 0.5);
+    margin: -128px 0 0 63px;
+    width: 700px;
+}
+
+.container-banner .welcome {
+    color: chartreuse;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px 0 5px 0;
+}
+
+.container-banner .line {
+    border-bottom: 4px solid rgb(127, 255, 0);
+    color: chartreuse;
+    width: 180px;
+}
+
+.container-banner .slogan {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px 0 27px 0;
 }
