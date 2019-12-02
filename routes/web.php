@@ -11,6 +11,10 @@
 |
 */
 
+use App\Http\Controllers\StudentsController;
+
 Route::get('/', function () {
     return view('planb.index');
 });
+
+Route::post('/', 'StudentsController@index');
