@@ -50,25 +50,11 @@
                 </div>
                 {{-- End header --}}
 
-                {{-- session --}}
-                @if (\Session::has('alert'))
-                <div class="alert alert-danger">
-                    <div>{{ Session::get('alert') }}</div>
-                </div>
-                @endif
-
-                @if (\Session::has('alert-success'))
-                <div class="alert alert-success">
-                    <div>{{ Session::get('alert-success') }}</div>
-                </div>
-                @endif
-                {{-- end session --}}
-
                 {{-- form --}}
-                <form method="post" action="{{ url('/') }}"> {{-- nanti ubah bagian ini --}}
+                <form action="{{ url('/login') }}" method="POST"> {{-- nanti ubah bagian ini --}}
                     @csrf
                     <div class="form">
-                        <div class="wrap-input100 validate-input form-group" data-validate="Valid email is: a@b.c">
+                        <div class="wrap-input100 validate-input form-group" data-validate="Isikan ID Siswa">
                             <input class="input100" type="text" name="id">
                             <span class="focus-input100" data-placeholder="ID SISWA"></span>
                         </div>
@@ -89,7 +75,7 @@
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn" type="submit">
+                            <button class="login100-form-btn" type="submit" name="submit">
                                 Hadir
                             </button>
                         </div>

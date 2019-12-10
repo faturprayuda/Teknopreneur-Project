@@ -14,20 +14,11 @@ class StudentsController extends Controller
      */
     public function index(Request $request)
     {
-        // return Student::all();
-        $id = $request->id_siswa;
-        $pass = $request->pass_siswa;
-        $data = Student::where('id_siswa', $id)->first();
-        if ($data) //bug di data
-            if (Hash::check($pass, $data->pass_siswa)) {
-                Session::put('id_siswa', $data->id);
-                Session::put('login', TRUE);
-                return redirect('https://www.google.com/');
-            } else {
-                return redirect('/')->with('alert', 'password salah !' . Hash::check($pass, $data->pass_siswa));
-            } else {
-            return redirect('/')->with('alert', 'Tidak Ada Data !');
-        }
+        $students = Student::all();
+        $username = $request -> id;
+        $pwd = $request -> pass;
+        
+        // ! lanjutin bagian ini buat pengecekan login
     }
 
     /**
