@@ -17,4 +17,9 @@ Route::get('/', function () {
     return view('planb.index');
 });
 
-Route::post('/login', 'StudentsController@index');
+Route::get('/adak', function () {
+    return view('adak.index');
+});
+
+Route::post('/login', 'StudentsController@login');
+Route::post('/adak', 'StudentsController@store');

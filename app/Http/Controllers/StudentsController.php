@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Student;
+use Hash;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
@@ -12,11 +13,44 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function login(Request $request)
     {
-        $students = Student::all();
-        $username = $request -> id;
-        $pwd = $request -> pass;
+        // $students = Student::all();
+        // $username = $request -> id;
+        // $pwd = $request -> pass;
+        
+        // // cek id dan pass
+        // $users_count = \DB::table('students')
+        // ->where('id_siswa', '=', $username)
+        // ->where('pass_siswa', '=', $pwd)
+        // ->count();
+
+        // if( $users_count === 1 )
+        // {
+        //     // cek password same with username
+        //     $row = mysqli_fetch_assoc($users_count);
+        //     if( password_verify($password, $row["password"] ) )
+        //     {
+        //         header("Location: index.php");
+        //         exit;
+        //     }
+        // }
+
+            $username = $request->id;
+            $password = $request->pass;
+            $data = Student::where('id_siswa',$username)->first();
+
+            if($data)
+            {
+                if(Hash::check($password, $data->pass_siswa))
+                {
+                    return redirect('/');
+                }
+                else
+                {
+                    return redirect('/')->with('alert', 'password salah ' .Hash::check($password, $data->password));
+                }
+            }
         
         // ! lanjutin bagian ini buat pengecekan login
     }
@@ -39,7 +73,13 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $students = new Student;
+        $students->id_siswa = $request->username;
+        $students->pass_siswa = bcrypt($request->password);
+        $students->nama_siswa = $request->name;
+
+        $students->save(); //cara pertama memasukkan data ke database
+        return view('adak.index');
     }
 
     /**

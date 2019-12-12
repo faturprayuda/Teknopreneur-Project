@@ -50,8 +50,20 @@
                 </div>
                 {{-- End header --}}
 
+                {{-- confirm --}}
+                @if('alert')
+                <div class="alert alert-danger">
+                    <div>{{get('alert')}}</div>
+                </div>
+                @endif
+                @if('alert')
+                <div class="alert alert-success">
+                    <div>{{get('alert')}}</div>
+                </div>
+                @endif
+
                 {{-- form --}}
-                <form action="{{ url('/login') }}" method="POST"> {{-- nanti ubah bagian ini --}}
+                <form action="{{ url('/login') }}" method="POST">
                     @csrf
                     <div class="form">
                         <div class="wrap-input100 validate-input form-group" data-validate="Isikan ID Siswa">
