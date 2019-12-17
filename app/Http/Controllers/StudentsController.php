@@ -44,12 +44,16 @@ class StudentsController extends Controller
             {
                 if(Hash::check($password, $data->pass_siswa))
                 {
-                    return redirect('/');
+                    return redirect('/')->with('status', 'Selamat Datang'. ' ' . $data->nama_siswa);
                 }
                 else
                 {
                     return redirect('/')->with('alert', 'password salah ' .Hash::check($password, $data->password));
                 }
+            }
+            else
+            {
+                return redirect('/')->with('alert_id', 'Id Siswa Tidak ditemuka');
             }
         
         // ! lanjutin bagian ini buat pengecekan login

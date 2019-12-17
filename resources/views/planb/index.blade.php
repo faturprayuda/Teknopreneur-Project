@@ -51,14 +51,21 @@
                 {{-- End header --}}
 
                 {{-- confirm --}}
-                @if('alert')
-                <div class="alert alert-danger">
-                    <div>{{get('alert')}}</div>
+                @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
                 </div>
                 @endif
-                @if('alert')
-                <div class="alert alert-success">
-                    <div>{{get('alert')}}</div>
+
+                @if (session('alert'))
+                <div class="alert alert-danger">
+                    {{ session('alert') }}
+                </div>
+                @endif
+
+                @if (session('alert_id'))
+                <div class="alert alert-danger">
+                    {{ session('alert_id') }}
                 </div>
                 @endif
 
@@ -96,7 +103,7 @@
                 {{-- End Form --}}
 
                 {{-- Footer --}}
-                <h5 class="footer">Copyright Reserved 2019 | SMP 128</h5>
+                {{-- <h5 class="footer">Copyright Reserved 2019 | SMP 128</h5> --}}
                 {{-- End Footer --}}
             </div>
 
