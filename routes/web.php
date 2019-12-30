@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\StudentsController;
+use Illuminate\Routing\Route;
 
 Route::get('/', function () {
     return view('planb.index');

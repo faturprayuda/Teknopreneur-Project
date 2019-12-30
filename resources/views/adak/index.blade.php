@@ -32,6 +32,10 @@
                 <input type="password" name="password" id="password">
             </li>
             <li>
+                <label for="id_telegram">Id User Telegram :</label>
+                <input type="text" name="id_telegram" id="id_telegram">
+            </li>
+            <li>
                 <button type="submit" name="register">Register!</button>
             </li>
         </ul>

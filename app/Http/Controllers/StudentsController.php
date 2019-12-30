@@ -15,47 +15,38 @@ class StudentsController extends Controller
      */
     public function login(Request $request)
     {
-        // $students = Student::all();
-        // $username = $request -> id;
-        // $pwd = $request -> pass;
-        
-        // // cek id dan pass
-        // $users_count = \DB::table('students')
-        // ->where('id_siswa', '=', $username)
-        // ->where('pass_siswa', '=', $pwd)
-        // ->count();
+        $username = $request->id;
+        $password = $request->pass;
+        $data = Student::where('id_siswa', $username)->first();
 
-        // if( $users_count === 1 )
-        // {
-        //     // cek password same with username
-        //     $row = mysqli_fetch_assoc($users_count);
-        //     if( password_verify($password, $row["password"] ) )
-        //     {
-        //         header("Location: index.php");
-        //         exit;
-        //     }
-        // }
+        if ($data) {
+            if (Hash::check($password, $data->pass_siswa)) {
 
-            $username = $request->id;
-            $password = $request->pass;
-            $data = Student::where('id_siswa',$username)->first();
+                // tambah fungsi bot telegram disini
+                $token = ['YOUR_TOKEN'];
+                $user_id = $data->id_tele_user; //your id_user on json api telegram
+                $msg = "Putra/Putri yang Bernama" . " " . $data->nama_siswa . " " . "Sudah Hadir di Sekolah";
 
-            if($data)
-            {
-                if(Hash::check($password, $data->pass_siswa))
-                {
-                    return redirect('/')->with('status', 'Selamat Datang'. ' ' . $data->nama_siswa);
+                $data_url = [
+                    'chat_id' => $user_id,
+                    'text' => $msg
+                ];
+
+                $get_request_url = 'https://api.telegram.org/bot' . $token . '/sendMessage?' . http_build_query($data_url);
+                $result = file_get_contents($get_request_url);
+
+                if ($result) {
+                    return redirect('/')->with('status', 'Selamat Datang' . ' ' . $data->nama_siswa);
+                } else {
+                    return redirect('/')->with('alert_id', 'gagal mengirim pesan');
                 }
-                else
-                {
-                    return redirect('/')->with('alert', 'password salah ' .Hash::check($password, $data->password));
-                }
+            } else {
+                return redirect('/')->with('alert', 'password salah ' . Hash::check($password, $data->password));
             }
-            else
-            {
-                return redirect('/')->with('alert_id', 'Id Siswa Tidak ditemuka');
-            }
-        
+        } else {
+            return redirect('/')->with('alert_id', 'Id Siswa Tidak ditemuka');
+        }
+
         // ! lanjutin bagian ini buat pengecekan login
     }
 
@@ -81,6 +72,7 @@ class StudentsController extends Controller
         $students->id_siswa = $request->username;
         $students->pass_siswa = bcrypt($request->password);
         $students->nama_siswa = $request->name;
+        $students->id_tele_user = $request->id_telegram;
 
         $students->save(); //cara pertama memasukkan data ke database
         return view('adak.index');
@@ -130,16 +122,4 @@ class StudentsController extends Controller
     {
         //
     }
-
-    //*pembuatan fungsi native
-    // public function auth(Request $req)
-    // {
-    //     $id = $req->id_siswa;
-    //     $pwd   = $req->pass_siswa;
-    //     if (Auth::attempt(['id_siswa' => $id, 'pass_siswa' => $pwd])) {
-    //         return "Hai " . Auth::user()->name_siswa;
-    //     } else {
-    //         return "Maaf email atau password yang anda masukan tidak sesuai.";
-    //     }
-    // }
 }
